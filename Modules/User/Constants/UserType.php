@@ -13,7 +13,7 @@ class UserType
      * @param int $type | optional
      * @return mix
      */
-    public function credits(int $type=null)
+    public static function credits(int $type=null)
     {
         $credits = [
             self::OWNER => 0,
