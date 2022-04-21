@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\JsonResponse;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
@@ -22,6 +23,7 @@ class LoginTest extends TestCase
             'password' => $password
         ]);
 
+        $response->assertSuccessful();
         $response->assertJsonStructure([
             'user' => [
                 'id',
@@ -35,5 +37,36 @@ class LoginTest extends TestCase
             ],
             'access_token'
         ]);
+    }
+
+    /**
+     * Test user login with wrong credential
+     */
+    public function testUserCannotLoginWithWrongCredentials()
+    {
+        $user = $this->user();
+        $response = $this->post('api/v1/login', [
+            'email' => $user->email,
+            'password' => 'WrongPassWordTemp123!'
+        ]);
+
+        $response->assertStatus(JsonResponse::HTTP_UNAUTHORIZED);
+        $response->assertJson(['message' => 'Login Gagal']);
+        $response->assertJsonStructure(['message']);
+    }
+
+    /**
+     * Test user login with wrong credential
+     */
+    public function testUserSendAnInvalidData()
+    {
+        $response = $this->post('api/v1/login', [
+            'email' => '',
+            'password' => ''
+        ]);
+
+        $response->assertStatus(JsonResponse::HTTP_FOUND);
+        $response->assertSessionHasErrors('email');
+        $response->assertSessionHasErrors('password');
     }
 }
