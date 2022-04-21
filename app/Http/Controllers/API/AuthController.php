@@ -21,9 +21,11 @@ class AuthController extends Controller
             return response()->json(['message' => 'Login Gagal'], JsonResponse::HTTP_UNAUTHORIZED);
         }
 
-        $accessToken = auth()->user->createToken('authToken')->accessToken;
+        $user = auth()->user();
 
-        return response()->json(['user' => auth()->user, 'access_token' => $accessToken], JsonResponse::HTTP_OK);
+        $accessToken = $user->createToken('authToken')->accessToken;
+
+        return response()->json(['user' => $user, 'access_token' => $accessToken], JsonResponse::HTTP_OK);
     }
 
     /**
