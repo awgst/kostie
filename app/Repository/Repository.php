@@ -36,8 +36,7 @@ class Repository implements RepositoryInterface
             $model = $model->with($with);
         }
         
-        return $model->latest()
-                    ->all();
+        return $model->get();
     }
 
     /**
@@ -116,8 +115,7 @@ class Repository implements RepositoryInterface
             $model = $model->with($with);
         }
 
-        return $model->latest()
-                    ->paginate($number);
+        return $model->paginate($number);
     }
 
     /**
