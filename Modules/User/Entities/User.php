@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Modules\User\Constants\UserType;
+use Modules\User\Database\factories\UserFactory;
 
 class User extends Authenticatable
 {
@@ -45,4 +47,22 @@ class User extends Authenticatable
     ];
 
     protected $table = 'users';
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
+
+    public static function boot()
+    {
+        static::creating(function ($model) {
+            $model->credit = UserType::credits($model->type);
+        });
+        parent::boot();
+    }
 }

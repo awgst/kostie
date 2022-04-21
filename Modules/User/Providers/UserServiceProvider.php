@@ -4,6 +4,7 @@ namespace Modules\User\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\User\Database\Factories\UserFactory;
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -96,7 +97,9 @@ class UserServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [];
+        return [
+            UserFactory::class
+        ];
     }
 
     private function getPublishableViewPaths(): array
