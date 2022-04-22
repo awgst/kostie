@@ -2,6 +2,7 @@
 
 namespace Modules\Kost\Tests\Unit;
 
+use Exception;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -20,6 +21,7 @@ class AskAvailabilityTest extends TestCase
     public function testUserAskKosAvailability()
     {
         $user = $this->user(UserType::PREMIUM);
+        $firstCredit = $user->credit;
         Passport::actingAs($user);
 
         $kost = $this->kost()[0];
@@ -29,6 +31,8 @@ class AskAvailabilityTest extends TestCase
         $response->assertStatus(JsonResponse::HTTP_OK);
 
         $kost = Kost::find($kost['id']);
-        $this->assertTrue($kost->checker->first()->id==$user->id);
+        $this->assertTrue($kost->checker->first()->id == $user->id);
+        $this->assertTrue($user->credit == ($firstCredit-5));
+        
     }
 }

@@ -14,6 +14,7 @@ use Modules\Kost\Exceptions\OutOfCreditException;
 use Modules\Kost\Http\Requests\StoreRequest;
 use Modules\Kost\Http\Requests\UpdateRequest;
 use Modules\Kost\Repositories\KostRepository;
+use Modules\User\Events\AskKostAvailability;
 
 class KostController extends Controller
 {
@@ -131,6 +132,7 @@ class KostController extends Controller
             $kost = $this->kost->findOrFail($id);
             Gate::allows('kost.ask-availability', $kost);
             $kost->checker()->attach([auth()->user()->id]);
+            event(new AskKostAvailability(auth()->user()));
         } catch (OutOfCreditException $e) {
             return $this->responseError($e->getMessage(), JsonResponse::HTTP_FORBIDDEN);
         } catch (Exception $e) {
