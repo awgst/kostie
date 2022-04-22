@@ -8,6 +8,9 @@ use Modules\User\Database\Factories\UserFactory;
 
 class UserServiceProvider extends ServiceProvider
 {
+    private $commands = [
+        \Modules\User\Console\RechargeCreditCommand::class,
+    ];
     /**
      * @var string $moduleName
      */
@@ -39,6 +42,7 @@ class UserServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->commands($this->commands);
     }
 
     /**

@@ -6,7 +6,8 @@
     "priority": 0,
     "providers": [
         "Modules\\User\\Providers\\UserServiceProvider",
-        "Modules\\User\\Providers\\EventServiceProvider"
+        "Modules\\User\\Providers\\EventServiceProvider",
+        "Modules\\User\\Providers\\ScheduleServiceProvider"
     ],
     "aliases": {},
     "files": [],
