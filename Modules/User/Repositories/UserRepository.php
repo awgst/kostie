@@ -28,4 +28,17 @@ class UserRepository extends Repository
         );
         
     }
+
+    /**
+     * Already Asked
+     */
+    public function alreadyAsked($kostId, $userId) : bool
+    {
+        $result = DB::table('kost_user')
+                    ->where('kost_id', $kostId)
+                    ->where('user_id', $userId)
+                    ->first();
+                    
+        return is_null($result) ? false : true;
+    }
 }
