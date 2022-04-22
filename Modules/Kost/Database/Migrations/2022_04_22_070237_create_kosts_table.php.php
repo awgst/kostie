@@ -14,7 +14,7 @@ class CreateKostsTable extends Migration
     public function up()
     {
         Schema::create('kosts', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->foreignUuid('owner_id');
             $table->string('name');
             $table->string('description');
