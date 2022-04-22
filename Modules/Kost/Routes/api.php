@@ -15,6 +15,7 @@ use Modules\Kost\Http\Controllers\API\KostController;
 |
 */
 
-Route::group(['prefix' => 'v1/kost', 'middleware' => 'auth'], function () {
-    Route::get('', [KostController::class, 'index']);
+Route::group(['prefix' => 'v1/kost'], function () {
+    Route::get('/', [KostController::class, 'index']);
+    Route::get('/{id}', [KostController::class, 'show']);
 });

@@ -21,6 +21,10 @@ class KostController extends Controller
         $this->kost = $kost;
     }
 
+    /**
+     * List all available kost
+     * @param Request $request
+     */
     public function index(Request $request)
     {
         try {
@@ -34,5 +38,20 @@ class KostController extends Controller
         }
         
         return $this->responseOk($kosts);
+    }
+
+    /**
+     * Detail kost
+     * @param $id
+     */
+    public function show($id)
+    {
+        try {
+            $kost = $this->kost->findOrFail($id, ['owner']);
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
+        
+        return $this->responseOk($kost);
     }
 }
