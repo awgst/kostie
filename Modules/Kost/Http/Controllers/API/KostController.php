@@ -29,8 +29,12 @@ class KostController extends Controller
     {
         try {
             $filters = $request->all();
-            $kosts = $this->kost
-                        ->filter($filters)
+            $kosts = $this->kost;
+            if ($request->has('sort')) {
+                $order = $request->has('order') ? $request->order : 'asc';
+                $kosts = $kosts->sortBy($request->sort, $order);
+            }
+            $kosts = $kosts->filter($filters)
                         ->available()
                         ->paginate(10);
         } catch (Exception $e) {

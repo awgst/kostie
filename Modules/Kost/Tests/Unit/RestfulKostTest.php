@@ -45,12 +45,6 @@ class RestfulKostTest extends TestCase
         $custom->price = 350000;
         $custom->slot = 1;
         $kost = $this->kost(1, $custom);
-        $custom = new stdClass;
-        $custom->name = 'Kos 1';
-        $custom->address = 'Jogja';
-        $custom->price = 500000;
-        $custom->slot = 1;
-        $kost = $this->kost(1, $custom);
         $response = $this->json('get', 'api/v1/kost', [
             'name' => 'Kos 1',
             'address' => 'Jogja',
@@ -65,14 +59,23 @@ class RestfulKostTest extends TestCase
                         'name' => 'Kos 1',
                         'address' => 'Jogja',
                         'price' => 350000
-                    ],
-                    [
-                        'name' => 'Kos 1',
-                        'address' => 'Jogja',
-                        'price' => 500000
                     ]
                 ]
             ]
         ]);
+    }
+
+    /**
+     * Sorted kost list by price
+     */
+    public function testKostListSortedByPrice()
+    {
+        $kost = $this->kost(10);
+        $response = $this->json('get', 'api/v1/kost', [
+            'sort' => 'price',
+            'order' => 'asc'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertSuccessful();
     }
 }

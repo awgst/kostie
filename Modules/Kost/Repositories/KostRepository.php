@@ -3,13 +3,15 @@
 namespace Modules\Kost\Repositories;
 
 use App\Repository\Contract\WithFilter;
+use App\Repository\Contract\WithSort;
 use App\Repository\Repository;
 use App\Repository\Traits\WithFiltering;
+use App\Repository\Traits\WithSorting;
 use Modules\Kost\Entities\Kost;
 
-class KostRepository extends Repository implements WithFilter
+class KostRepository extends Repository implements WithFilter, WithSort
 {
-    use WithFiltering;
+    use WithFiltering, WithSorting;
 
     public function __construct(Kost $kost)
     {
