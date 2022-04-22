@@ -51,7 +51,7 @@ class Repository implements RepositoryInterface
             $model = $model->with($with);
         }
 
-        return $model->findByUuid($id);
+        return $model->find($id);
     }
 
     /**
@@ -84,7 +84,7 @@ class Repository implements RepositoryInterface
             $model = $model->with($with);
         }
 
-        return $model->findOrFailByUuid($id);
+        return $model->findOrFail($id);
     }
 
     /**
