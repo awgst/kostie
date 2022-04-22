@@ -32,9 +32,9 @@ abstract class TestCase extends BaseTestCase
         return $user;
     }
 
-    protected function kost(int $count=1, $custom=null)
+    protected function kost(int $count=1, $custom=null, $user=null)
     {
-        $user = $this->user();
+        $user = $user ?? $this->user();
         if (is_null($custom)) {
             $kost = Kost::factory($count)->create(['owner_id'=>$user->id])->all();
         } else {

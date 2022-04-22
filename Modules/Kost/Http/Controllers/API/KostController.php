@@ -98,4 +98,23 @@ class KostController extends Controller
 
         return $this->responseOk($kost);
     }
+
+    /**
+     * Delete kost
+     * @param Request $request
+     */
+    public function destroy($id)
+    {
+        try {
+            $kost = $this->kost->findOrFail($id);
+            Gate::allows('kost.destroy', $kost);
+            $kost = $kost->delete();
+        } catch (InvalidUserTypeException $e) {
+            return $this->responseError($e->getMessage(), JsonResponse::HTTP_FORBIDDEN);
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
+
+        return $this->responseOk($kost);
+    }
 }

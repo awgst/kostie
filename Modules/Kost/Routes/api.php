@@ -21,5 +21,6 @@ Route::group(['prefix' => 'v1/kost'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/', [KostController::class, 'store']);
         Route::put('/{id}', [KostController::class, 'update']);
+        Route::delete('/{id}', [KostController::class, 'destroy']);
     });
 });

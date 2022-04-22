@@ -88,7 +88,7 @@ class RestfulKostTest extends TestCase
     public function testOwnerCanAddAKost()
     {
         $user = $this->user(UserType::OWNER);
-        $user = Passport::actingAs($user);
+        Passport::actingAs($user);
 
         $response = $this->json('post', 'api/v1/kost', [
             'name' => 'Kost Baru',
@@ -107,7 +107,7 @@ class RestfulKostTest extends TestCase
     public function testRegularUserCannotAddAKost()
     {
         $user = $this->user(UserType::REGULAR);
-        $user = Passport::actingAs($user);
+        Passport::actingAs($user);
 
         $response = $this->json('post', 'api/v1/kost', [
             'name' => 'Kost Baru',
@@ -126,7 +126,7 @@ class RestfulKostTest extends TestCase
     public function testPremiumUserCannotAddAKost()
     {
         $user = $this->user(UserType::PREMIUM);
-        $user = Passport::actingAs($user);
+        Passport::actingAs($user);
 
         $response = $this->json('post', 'api/v1/kost', [
             'name' => 'Kost Baru',
@@ -145,7 +145,7 @@ class RestfulKostTest extends TestCase
     public function testOwnerCanEditKost()
     {
         $user = $this->user(UserType::OWNER);
-        $user = Passport::actingAs($user);
+        Passport::actingAs($user);
 
         $kost = $this->kost()[0];
 
@@ -166,7 +166,7 @@ class RestfulKostTest extends TestCase
     public function testRegularUserCannotEditKost()
     {
         $user = $this->user(UserType::REGULAR);
-        $user = Passport::actingAs($user);
+        Passport::actingAs($user);
 
         $kost = $this->kost()[0];
 
@@ -187,7 +187,7 @@ class RestfulKostTest extends TestCase
     public function testPremiumUserCannotEditKost()
     {
         $user = $this->user(UserType::PREMIUM);
-        $user = Passport::actingAs($user);
+        Passport::actingAs($user);
 
         $kost = $this->kost()[0];
 
@@ -198,6 +198,51 @@ class RestfulKostTest extends TestCase
             'slot' => 1,
             'description' => 'Lorem ipsum'
         ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
+    }
+
+    /**
+     * delete kost
+     */
+    public function testOwnerCanDeleteKost()
+    {
+        $user = $this->user(UserType::OWNER);
+        Passport::actingAs($user);
+
+        $kost = $this->kost(1, null, $user)[0];
+
+        $response = $this->json('delete', 'api/v1/kost/'.$kost['id'], [], ['Accept' => 'application/json']);
+
+        $response->assertStatus(JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * User (not owner) cannot delete
+     */
+    public function testRegularUserCannotDeleteKost()
+    {
+        $user = $this->user(UserType::REGULAR);
+        Passport::actingAs($user);
+
+        $kost = $this->kost()[0];
+
+        $response = $this->json('delete', 'api/v1/kost/'.$kost['id'], [], ['Accept' => 'application/json']);
+
+        $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
+    }
+
+    /**
+     * User (not owner) cannot delete
+     */
+    public function testPremiumUserCannotDeleteKost()
+    {
+        $user = $this->user(UserType::PREMIUM);
+        Passport::actingAs($user);
+
+        $kost = $this->kost()[0];
+
+        $response = $this->json('delete', 'api/v1/kost/'.$kost['id'], [], ['Accept' => 'application/json']);
 
         $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
     }
