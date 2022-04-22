@@ -147,7 +147,7 @@ class RestfulKostTest extends TestCase
         $user = $this->user(UserType::OWNER);
         Passport::actingAs($user);
 
-        $kost = $this->kost()[0];
+        $kost = $this->kost(1, null, $user)[0];
 
         $response = $this->json('put', 'api/v1/kost/'.$kost['id'], [
             'name' => 'Kost Baru',

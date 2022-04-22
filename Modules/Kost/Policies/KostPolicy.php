@@ -29,9 +29,13 @@ class KostPolicy
      * Update kost
      * @param User $user
      */
-    public function update(User $user)
+    public function update(User $user, Kost $kost)
     {
         if ($user->type != UserType::OWNER) {
+            throw new InvalidUserTypeException("Anda tidak dapat mengubah kos karena anda bukan seorang pemilik");
+        }
+
+        if ($user->id != $kost->owner_id) {
             throw new InvalidUserTypeException("Anda tidak dapat mengubah kos karena anda bukan seorang pemilik");
         }
         

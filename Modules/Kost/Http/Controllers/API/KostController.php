@@ -88,8 +88,9 @@ class KostController extends Controller
     public function update(UpdateRequest $request, $id)
     {
         try {
-            Gate::allows('kost.update');
-            $kost = $this->kost->update($id, $request->data());
+            $kost = $this->kost->findOrFail($id);
+            Gate::allows('kost.update', $kost);
+            $kost = $kost->update($request->data());
         } catch (InvalidUserTypeException $e) {
             return $this->responseError($e->getMessage(), JsonResponse::HTTP_FORBIDDEN);
         } catch (Exception $e) {
