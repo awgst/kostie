@@ -8,6 +8,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Gate;
+use Modules\Kost\Exceptions\InvalidUserTypeException;
+use Modules\Kost\Http\Requests\StoreRequest;
 use Modules\Kost\Repositories\KostRepository;
 
 class KostController extends Controller
@@ -57,5 +60,23 @@ class KostController extends Controller
         }
         
         return $this->responseOk($kost);
+    }
+
+    /**
+     * Create kost
+     * @param Request $request
+     */
+    public function store(StoreRequest $request)
+    {
+        try {
+            Gate::allows('kost.store');
+            $kost = $this->kost->store($request->data());
+        } catch (InvalidUserTypeException $e) {
+            return $this->responseError($e->getMessage(), JsonResponse::HTTP_FORBIDDEN);
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
+
+        return $this->responseOk($kost, JsonResponse::HTTP_CREATED);
     }
 }

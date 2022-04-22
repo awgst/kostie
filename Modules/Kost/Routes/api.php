@@ -18,4 +18,7 @@ use Modules\Kost\Http\Controllers\API\KostController;
 Route::group(['prefix' => 'v1/kost'], function () {
     Route::get('/', [KostController::class, 'index']);
     Route::get('/{id}', [KostController::class, 'show']);
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::post('/', [KostController::class, 'store']);
+    });
 });

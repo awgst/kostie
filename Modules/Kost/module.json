@@ -5,7 +5,8 @@
     "keywords": [],
     "priority": 0,
     "providers": [
-        "Modules\\Kost\\Providers\\KostServiceProvider"
+        "Modules\\Kost\\Providers\\KostServiceProvider",
+        "Modules\\Kost\\Providers\\CapabilityServiceProvider"
     ],
     "aliases": {},
     "files": [],

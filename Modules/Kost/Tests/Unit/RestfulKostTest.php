@@ -5,6 +5,9 @@ namespace Modules\Kost\Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\JsonResponse;
+use Laravel\Passport\Passport;
+use Modules\User\Constants\UserType;
 use stdClass;
 
 class RestfulKostTest extends TestCase
@@ -77,5 +80,62 @@ class RestfulKostTest extends TestCase
         ], ['Accept' => 'application/json']);
 
         $response->assertSuccessful();
+    }
+
+    /**
+     * Store kost
+     */
+    public function testOwnerCanAddAKost()
+    {
+        $user = $this->user(UserType::OWNER);
+        $user = Passport::actingAs($user);
+
+        $response = $this->json('post', 'api/v1/kost', [
+            'name' => 'Kost Baru',
+            'address' => 'Jl Magelang',
+            'price' => 380000,
+            'slot' => 1,
+            'description' => 'Lorem ipsum'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(JsonResponse::HTTP_CREATED);
+    }
+
+    /**
+     * User (not owner) cannot store
+     */
+    public function testRegularUserCannotAddAKost()
+    {
+        $user = $this->user(UserType::REGULAR);
+        $user = Passport::actingAs($user);
+
+        $response = $this->json('post', 'api/v1/kost', [
+            'name' => 'Kost Baru',
+            'address' => 'Jl Magelang',
+            'price' => 380000,
+            'slot' => 1,
+            'description' => 'Lorem ipsum'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
+    }
+
+    /**
+     * User (not owner) cannot store
+     */
+    public function testPremiumUserCannotAddAKost()
+    {
+        $user = $this->user(UserType::PREMIUM);
+        $user = Passport::actingAs($user);
+
+        $response = $this->json('post', 'api/v1/kost', [
+            'name' => 'Kost Baru',
+            'address' => 'Jl Magelang',
+            'price' => 380000,
+            'slot' => 1,
+            'description' => 'Lorem ipsum'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
     }
 }
