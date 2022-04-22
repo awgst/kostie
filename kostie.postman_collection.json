@@ -1,0 +1,586 @@
+{
+	"info": {
+		"_postman_id": "92325c50-e69f-4041-a77b-af15d8f3855a",
+		"name": "kostie",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OAuth",
+			"item": [
+				{
+					"name": "Fetch Token",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "default"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "default"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "default"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "default"
+								},
+								{
+									"key": "scope",
+									"value": "",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{fetch_token_url}}",
+							"host": [
+								"{{fetch_token_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "default"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "default"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "default"
+								},
+								{
+									"key": "scope",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "refresh_token",
+									"value": "def5020018f0e9fb46dfc1b256dc2e43d4c5ffe399a05397963c93c34961bb976aa6f0d7119e6edecc1fdb255ed81525f3d2b1aaeb8093504a4017287d4b5338e64dff7fd8ecef59414efab95bafd1a00d6480444e04543e74c5394eea24a32d6ecea8b437083df8d9cd327911d0718d3c0e3790151d3b7077d452927d6f578c8872a31ea27418e1ad81f48eb94ba1fe388555bf25355c24dffc57f83a75565bcb92da0af0a80e45ef40791f318759484576520932a471e1750ebf6f2ffc9bc572cab781b241cd05a2993459acba89179c07cf08fc23d19bd044bebed9bb4ba81ecbbd7a7b3e9df85e48fbd79aae81254ce3931cfd9fce86b2f71df77b09d6e3d4b840e425c48c68fbbdd76cb91932509302567c018b9b495a3b1388415977031aa532b9ebc55419220bf30ba5e70ff2a4b0d9ac6d4753364ba82d7b4b08b20be91b86cbbac4e8ebf875e96169bfd02c8dd7bf2eb4abb89cede4da1903f5c72a2a",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{fetch_token_url}}",
+							"host": [
+								"{{fetch_token_url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register Owner",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Owner",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "owner@test.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "default"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "123456",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/owner/register",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"owner",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Regular User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Reguler 3",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "regular3@test.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "default"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "123456",
+									"type": "default"
+								},
+								{
+									"key": "type",
+									"value": "2",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/register",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Premium User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Premium 2",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "premium2@test.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "default"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "123456",
+									"type": "default"
+								},
+								{
+									"key": "type",
+									"value": "3",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/register",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "premium@test.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/login",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kost",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/v1/kost",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"kost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/v1/kost/1e1a328f-8fa6-4af3-9620-b07b4c7b29ea",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"kost",
+								"1e1a328f-8fa6-4af3-9620-b07b4c7b29ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTI1Zjg4ODlhMzA4YjEwNzg5OGZmMGU1N2UwMTU5Njk5OGI0NmFkODc3MDI2ZTg4ZWY4OGQ2ZWMxOTE4YWM1MzlhM2Y1MDMzZDQ5ZjNhOTQiLCJpYXQiOjE2NTA2MDIxMzIuMjk2OTUsIm5iZiI6MTY1MDYwMjEzMi4yOTY5NTMsImV4cCI6MTY4MjEzODEzMi4yODkzMzcsInN1YiI6Ijc1ODg4NDUxLTdhZjctNGNhNi1iM2Y0LTc3ZDk1NjFjMjM4ZCIsInNjb3BlcyI6W119.NBIYH5FlWR6PnB0krOMdItaX9qb6wFQYAqEOKN6n0y-gxyo_-qJ22qpTNG9S7Pkk2J9tnT0qniiYHRBSGZjJwL1UNlMyie7xBVdR5Iya4sVB3DITCBTnn_4B6CADZ48VJR9SEixgI80f5kkx043NaICZRvRfnscRJj8b4E595BN1CayyXSxcJclSjq8LHW2xgE9VYTAWBMEfVyYtAkzqGRn6x3egDpIPgXf5RVsaBu93DDwobQm_7D9IcKF2f1-Nn11SKx_nvzVrn-iLIFnd268SXzOFo35AfJjqtrEpHEruoQ0POYgzQoAzZySWVBrC9febX6ksuppZqd64ctcxuO3Wbw_vEZS2tMFYZyrvwXHCtL10xqx5_9gzVhh04YjKOC5EiRh18DEXvGWZx3lfT14JRcEu7ZZ8UhEOhSDZVVfLVvb6sg7RM6fATi4WCYBJ4DJC6tjTAuF2y6oF46lCs8qqNrvzWnxIYM9TeXYr8OBEwT-HhM4R7BcpTyspz1CZH06P2Oc5WHieE_2boX8PVvbx6XlzEHSYhgawDf0HfNmo93WlkgWs-uDwXlaOSuQ-rV9xSGmVMkXFz1imI8uLqXWWhP_14kJFSBm1pz4p9at4nD-u-OB3WbxDDTKswR6Uz5KdjKRnV0C_jlMpKZLXMkby0ouTCdmLG00oXLQcMS0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Kos Baru Lagi",
+									"type": "default"
+								},
+								{
+									"key": "address",
+									"value": "Masih di Jogja",
+									"type": "default"
+								},
+								{
+									"key": "slot",
+									"value": "10",
+									"type": "default"
+								},
+								{
+									"key": "price",
+									"value": "350000",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum dolor",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/kost",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"kost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTI1Zjg4ODlhMzA4YjEwNzg5OGZmMGU1N2UwMTU5Njk5OGI0NmFkODc3MDI2ZTg4ZWY4OGQ2ZWMxOTE4YWM1MzlhM2Y1MDMzZDQ5ZjNhOTQiLCJpYXQiOjE2NTA2MDIxMzIuMjk2OTUsIm5iZiI6MTY1MDYwMjEzMi4yOTY5NTMsImV4cCI6MTY4MjEzODEzMi4yODkzMzcsInN1YiI6Ijc1ODg4NDUxLTdhZjctNGNhNi1iM2Y0LTc3ZDk1NjFjMjM4ZCIsInNjb3BlcyI6W119.NBIYH5FlWR6PnB0krOMdItaX9qb6wFQYAqEOKN6n0y-gxyo_-qJ22qpTNG9S7Pkk2J9tnT0qniiYHRBSGZjJwL1UNlMyie7xBVdR5Iya4sVB3DITCBTnn_4B6CADZ48VJR9SEixgI80f5kkx043NaICZRvRfnscRJj8b4E595BN1CayyXSxcJclSjq8LHW2xgE9VYTAWBMEfVyYtAkzqGRn6x3egDpIPgXf5RVsaBu93DDwobQm_7D9IcKF2f1-Nn11SKx_nvzVrn-iLIFnd268SXzOFo35AfJjqtrEpHEruoQ0POYgzQoAzZySWVBrC9febX6ksuppZqd64ctcxuO3Wbw_vEZS2tMFYZyrvwXHCtL10xqx5_9gzVhh04YjKOC5EiRh18DEXvGWZx3lfT14JRcEu7ZZ8UhEOhSDZVVfLVvb6sg7RM6fATi4WCYBJ4DJC6tjTAuF2y6oF46lCs8qqNrvzWnxIYM9TeXYr8OBEwT-HhM4R7BcpTyspz1CZH06P2Oc5WHieE_2boX8PVvbx6XlzEHSYhgawDf0HfNmo93WlkgWs-uDwXlaOSuQ-rV9xSGmVMkXFz1imI8uLqXWWhP_14kJFSBm1pz4p9at4nD-u-OB3WbxDDTKswR6Uz5KdjKRnV0C_jlMpKZLXMkby0ouTCdmLG00oXLQcMS0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Kos Baru Lagi Update",
+									"type": "default"
+								},
+								{
+									"key": "address",
+									"value": "Masih di Jogja",
+									"type": "default"
+								},
+								{
+									"key": "slot",
+									"value": "12",
+									"type": "default"
+								},
+								{
+									"key": "price",
+									"value": "350000",
+									"type": "default"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum dolor",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/kost/1e1a328f-8fa6-4af3-9620-b07b4c7b29ea",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"kost",
+								"1e1a328f-8fa6-4af3-9620-b07b4c7b29ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTI1Zjg4ODlhMzA4YjEwNzg5OGZmMGU1N2UwMTU5Njk5OGI0NmFkODc3MDI2ZTg4ZWY4OGQ2ZWMxOTE4YWM1MzlhM2Y1MDMzZDQ5ZjNhOTQiLCJpYXQiOjE2NTA2MDIxMzIuMjk2OTUsIm5iZiI6MTY1MDYwMjEzMi4yOTY5NTMsImV4cCI6MTY4MjEzODEzMi4yODkzMzcsInN1YiI6Ijc1ODg4NDUxLTdhZjctNGNhNi1iM2Y0LTc3ZDk1NjFjMjM4ZCIsInNjb3BlcyI6W119.NBIYH5FlWR6PnB0krOMdItaX9qb6wFQYAqEOKN6n0y-gxyo_-qJ22qpTNG9S7Pkk2J9tnT0qniiYHRBSGZjJwL1UNlMyie7xBVdR5Iya4sVB3DITCBTnn_4B6CADZ48VJR9SEixgI80f5kkx043NaICZRvRfnscRJj8b4E595BN1CayyXSxcJclSjq8LHW2xgE9VYTAWBMEfVyYtAkzqGRn6x3egDpIPgXf5RVsaBu93DDwobQm_7D9IcKF2f1-Nn11SKx_nvzVrn-iLIFnd268SXzOFo35AfJjqtrEpHEruoQ0POYgzQoAzZySWVBrC9febX6ksuppZqd64ctcxuO3Wbw_vEZS2tMFYZyrvwXHCtL10xqx5_9gzVhh04YjKOC5EiRh18DEXvGWZx3lfT14JRcEu7ZZ8UhEOhSDZVVfLVvb6sg7RM6fATi4WCYBJ4DJC6tjTAuF2y6oF46lCs8qqNrvzWnxIYM9TeXYr8OBEwT-HhM4R7BcpTyspz1CZH06P2Oc5WHieE_2boX8PVvbx6XlzEHSYhgawDf0HfNmo93WlkgWs-uDwXlaOSuQ-rV9xSGmVMkXFz1imI8uLqXWWhP_14kJFSBm1pz4p9at4nD-u-OB3WbxDDTKswR6Uz5KdjKRnV0C_jlMpKZLXMkby0ouTCdmLG00oXLQcMS0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/v1/kost/1e1a328f-8fa6-4af3-9620-b07b4c7b29ea",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"kost",
+								"1e1a328f-8fa6-4af3-9620-b07b4c7b29ea"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ask Availability",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjVkZGMyM2ZkYWZjYTgyNmFmZWRkZWRkMTg5ZTlmZTQ0MGZjYjJhZTYyZWFjODdjNTRmZDc3Y2VhZWE2YTVhMGRkZDQ3MjlkNGE2NWNkZTgiLCJpYXQiOjE2NTA2MzgyOTUuNTE2OTQ0LCJuYmYiOjE2NTA2MzgyOTUuNTE2OTQ5LCJleHAiOjE2ODIxNzQyOTUuNTA3MjcyLCJzdWIiOiIyNjg2NzFmMS05MzQ4LTQ1YzMtYTVlYS01NzNiYmQwMzk1ODYiLCJzY29wZXMiOltdfQ.NbDkCBN2RgcYveY3HKax5LCML_F65Cyiu2Y5rXvvbCphsf0klBWWXDkPqzzZnZYzX9xoWLXXT6SbzuH6DN_nuCvgd699RtN0QNTWSOYN7zDlfLsBQSorhC4afhg2ytt0wE4vpXlYGTPaOVX5g-T8CNHplPdFcMz72J9nK_RsnX3qZA3A0IqUdg3wNUqCXx9w9bQwB7AH2BdTx8Yb2q4LtHNJnBz6g7z9z4-cKeN87aBUzHTXnFIkjzMTDLFzYuU1gKbE2WzXhS4lvQka270MsC0LfhGy7my-kxr_aShSUa2GLOX8iKirPJ87Culuuf3ofTEafUEA-J7i3zHPqd87juOtyaZfF0jCAWM9LJymFXAASQW7DJaXkp8W1QHnlk5pgg-WyBnWtTMFCrzLnOAWtL0T4oQTwXXPr2thYbWO-sSQcELCV1KMauJBr0mq2rfGbqw1iENzwKK-I8tkCsA_MUs5liOx0tHzE9Ow3Fe6Vl3rTocSvwcdjgCm5yKvv5LsBTubF_FZOrblklLZ6NUbu0z9Mlcw2sRoms0ytybyGk8pJnV9ZyYx0hz3pan_vcT4Zl_hKN-ptngxkQWpdht_tIQlpUIb2cYZCN-58SbcISPmYPvS75FDTEuPSBPkJ6WzkMLoCM0v_CAFl7hOXCoFGOyLQEV_kkULFq43swmrLmQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}/v1/kost/b43aae4c-d2da-489c-bc8b-57de1ba2384b/ask-availability",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"kost",
+								"b43aae4c-d2da-489c-bc8b-57de1ba2384b",
+								"ask-availability"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
