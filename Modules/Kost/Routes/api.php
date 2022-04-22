@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Kost\Http\Controllers\API\KostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/kost', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1/kost', 'middleware' => 'auth'], function () {
+    Route::get('', [KostController::class, 'index']);
 });
