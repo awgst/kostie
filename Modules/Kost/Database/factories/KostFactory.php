@@ -17,7 +17,7 @@ class KostFactory extends Factory
             'name' => $this->faker->colorName(),
             'address' => $this->faker->streetName(),
             'price' => rand(100, 1000) * 1000,
-            'slot' => rand(0, 10),
+            'slot' => rand(1, 10),
             'description' =>$this->faker->text(rand(50, 70))
         ];
     }

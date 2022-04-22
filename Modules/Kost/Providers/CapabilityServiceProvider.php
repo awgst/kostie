@@ -27,5 +27,6 @@ class CapabilityServiceProvider extends AuthServiceProvider
         Gate::define('kost.store', \Modules\Kost\Policies\KostPolicy::class.'@store');
         Gate::define('kost.update', \Modules\Kost\Policies\KostPolicy::class.'@update');
         Gate::define('kost.destroy', \Modules\Kost\Policies\KostPolicy::class.'@destroy');
+        Gate::define('kost.ask-availability', \Modules\Kost\Policies\KostPolicy::class.'@askAvailability');
     }
 }

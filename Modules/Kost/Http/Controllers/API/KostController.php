@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Modules\Kost\Exceptions\InvalidUserTypeException;
+use Modules\Kost\Exceptions\OutOfCreditException;
 use Modules\Kost\Http\Requests\StoreRequest;
 use Modules\Kost\Http\Requests\UpdateRequest;
 use Modules\Kost\Repositories\KostRepository;
@@ -84,6 +85,7 @@ class KostController extends Controller
     /**
      * Update kost
      * @param Request $request
+     * @param $id
      */
     public function update(UpdateRequest $request, $id)
     {
@@ -102,7 +104,7 @@ class KostController extends Controller
 
     /**
      * Delete kost
-     * @param Request $request
+     * @param $id
      */
     public function destroy($id)
     {
@@ -117,5 +119,24 @@ class KostController extends Controller
         }
 
         return $this->responseOk($kost);
+    }
+
+    /**
+     * Ask kost availability
+     * @param $id
+     */
+    public function askAvailability($id)
+    {
+        try {
+            $kost = $this->kost->findOrFail($id);
+            Gate::allows('kost.ask-availability', $kost);
+            $kost->checker()->attach([auth()->user()->id]);
+        } catch (OutOfCreditException $e) {
+            return $this->responseError($e->getMessage(), JsonResponse::HTTP_FORBIDDEN);
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
+
+        return $this->responseOk($kost, JsonResponse::HTTP_OK, 'Berhasil menanyakan ketersediaan');
     }
 }

@@ -20,6 +20,7 @@ Route::group(['prefix' => 'v1/kost'], function () {
     Route::get('/{id}', [KostController::class, 'show']);
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/', [KostController::class, 'store']);
+        Route::post('/{id}/ask-availability', [KostController::class, 'askAvailability']);
         Route::put('/{id}', [KostController::class, 'update']);
         Route::delete('/{id}', [KostController::class, 'destroy']);
     });
