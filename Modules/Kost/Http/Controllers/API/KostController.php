@@ -11,6 +11,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Modules\Kost\Exceptions\InvalidUserTypeException;
 use Modules\Kost\Http\Requests\StoreRequest;
+use Modules\Kost\Http\Requests\UpdateRequest;
 use Modules\Kost\Repositories\KostRepository;
 
 class KostController extends Controller
@@ -78,5 +79,23 @@ class KostController extends Controller
         }
 
         return $this->responseOk($kost, JsonResponse::HTTP_CREATED);
+    }
+
+    /**
+     * Update kost
+     * @param Request $request
+     */
+    public function update(UpdateRequest $request, $id)
+    {
+        try {
+            Gate::allows('kost.update');
+            $kost = $this->kost->update($id, $request->data());
+        } catch (InvalidUserTypeException $e) {
+            return $this->responseError($e->getMessage(), JsonResponse::HTTP_FORBIDDEN);
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
+
+        return $this->responseOk($kost);
     }
 }

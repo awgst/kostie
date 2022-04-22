@@ -138,4 +138,67 @@ class RestfulKostTest extends TestCase
 
         $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
     }
+
+    /**
+     * update kost
+     */
+    public function testOwnerCanEditKost()
+    {
+        $user = $this->user(UserType::OWNER);
+        $user = Passport::actingAs($user);
+
+        $kost = $this->kost()[0];
+
+        $response = $this->json('put', 'api/v1/kost/'.$kost['id'], [
+            'name' => 'Kost Baru',
+            'address' => 'Jl Magelang',
+            'price' => 380000,
+            'slot' => 1,
+            'description' => 'Lorem ipsum'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(JsonResponse::HTTP_OK);
+    }
+
+    /**
+     * User (not owner) cannot update
+     */
+    public function testRegularUserCannotEditKost()
+    {
+        $user = $this->user(UserType::REGULAR);
+        $user = Passport::actingAs($user);
+
+        $kost = $this->kost()[0];
+
+        $response = $this->json('put', 'api/v1/kost/'.$kost['id'], [
+            'name' => 'Kost Baru',
+            'address' => 'Jl Magelang',
+            'price' => 380000,
+            'slot' => 1,
+            'description' => 'Lorem ipsum'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
+    }
+
+    /**
+     * User (not owner) cannot update
+     */
+    public function testPremiumUserCannotEditKost()
+    {
+        $user = $this->user(UserType::PREMIUM);
+        $user = Passport::actingAs($user);
+
+        $kost = $this->kost()[0];
+
+        $response = $this->json('put', 'api/v1/kost/'.$kost['id'], [
+            'name' => 'Kost Baru',
+            'address' => 'Jl Magelang',
+            'price' => 380000,
+            'slot' => 1,
+            'description' => 'Lorem ipsum'
+        ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
+    }
 }

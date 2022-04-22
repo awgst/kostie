@@ -25,5 +25,6 @@ class CapabilityServiceProvider extends AuthServiceProvider
     {
         $this->registerPolicies();
         Gate::define('kost.store', \Modules\Kost\Policies\KostPolicy::class.'@store');
+        Gate::define('kost.update', \Modules\Kost\Policies\KostPolicy::class.'@update');
     }
 }
