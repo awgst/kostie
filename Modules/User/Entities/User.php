@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Modules\Kost\Entities\Kost;
 use Modules\User\Constants\UserType;
 use Modules\User\Database\factories\UserFactory;
 
@@ -47,6 +48,12 @@ class User extends Authenticatable
     ];
 
     protected $table = 'users';
+
+    // Check kost availability
+    public function kosts()
+    {
+        return $this->belongsToMany(Kost::class, 'kost_user', 'kost_id', 'user_id');
+    }
 
     /**
      * Create a new factory instance for the model.

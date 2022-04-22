@@ -1,25 +1,21 @@
 <?php
 
-namespace Modules\User\Providers;
+namespace Modules\Kost\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
-use Modules\User\Database\Factories\UserFactory;
 
-class UserServiceProvider extends ServiceProvider
+class KostServiceProvider extends ServiceProvider
 {
-    private $commands = [
-        \Modules\User\Console\RechargeCreditCommand::class,
-    ];
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'User';
+    protected $moduleName = 'Kost';
 
     /**
      * @var string $moduleNameLower
      */
-    protected $moduleNameLower = 'user';
+    protected $moduleNameLower = 'kost';
 
     /**
      * Boot the application events.
@@ -42,7 +38,6 @@ class UserServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
-        $this->commands($this->commands);
     }
 
     /**
@@ -101,9 +96,7 @@ class UserServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [
-            UserFactory::class
-        ];
+        return [];
     }
 
     private function getPublishableViewPaths(): array

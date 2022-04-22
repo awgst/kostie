@@ -1,0 +1,14 @@
+{
+    "name": "Kost",
+    "alias": "kost",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Kost\\Providers\\KostServiceProvider",
+        "Modules\\Kost\\Providers\\CapabilityServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

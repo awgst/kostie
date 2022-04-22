@@ -6,7 +6,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Modules\User\Entities\User;
 use Illuminate\Support\Str;
+use Modules\Kost\Entities\Kost;
 use Modules\User\Constants\UserType;
+use stdClass;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -28,5 +30,23 @@ abstract class TestCase extends BaseTestCase
         
         $this->password = $password;
         return $user;
+    }
+
+    protected function kost(int $count=1, $custom=null, $user=null)
+    {
+        $user = $user ?? $this->user();
+        if (is_null($custom)) {
+            $kost = Kost::factory($count)->create(['owner_id'=>$user->id])->all();
+        } else {
+            $kost = Kost::factory($count)->create([
+                'owner_id' => $user->id,
+                'name' => $custom->name,
+                'address' => $custom->address,
+                'price' => $custom->price,
+                'slot' => $custom->slot
+            ])->all();
+        }
+
+        return $kost;
     }
 }
