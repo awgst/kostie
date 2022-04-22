@@ -131,6 +131,10 @@ class KostController extends Controller
         try {
             $kost = $this->kost->findOrFail($id);
             Gate::allows('kost.ask-availability', $kost);
+            $user = app(\Modules\User\Repositories\UserRepository::class);
+            if ($user->alreadyAsked($kost->id, auth()->user()->id)) {
+                throw new Exception('Sudah pernah ditanyakan');
+            }
             $kost->checker()->attach([auth()->user()->id]);
             event(new AskKostAvailability(auth()->user()));
         } catch (OutOfCreditException $e) {
